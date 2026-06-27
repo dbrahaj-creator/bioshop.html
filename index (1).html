@@ -191,37 +191,70 @@
     /* ── CATEGORIES ── */
     .cat-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 12px;
-      max-width: 700px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      max-width: 860px;
       margin: 0 auto;
     }
 
+    @media (max-width: 640px) {
+      .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    }
+
     .cat-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.25rem 1rem;
+      border-radius: 14px;
+      padding: 1.4rem 1rem 1.1rem;
       text-align: center;
       cursor: pointer;
-      transition: border-color 0.15s, transform 0.1s;
+      transition: transform 0.18s, box-shadow 0.18s;
       text-decoration: none;
       color: inherit;
-      display: block;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: none;
+      position: relative;
+      overflow: hidden;
     }
 
-    .cat-card:hover { border-color: var(--green-main); transform: translateY(-2px); }
+    .cat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.10); }
 
-    .cat-icon {
-      font-size: 28px;
-      margin-bottom: 8px;
-      display: block;
+    .cat-card.c1 { background: #FFF5E6; }
+    .cat-card.c2 { background: #E8F5E9; }
+    .cat-card.c3 { background: #EDE7F6; }
+    .cat-card.c4 { background: #E3F2FD; }
+    .cat-card.c5 { background: #FCE4EC; }
+    .cat-card.c6 { background: #F1F8E9; }
+
+    .cat-icon-wrap {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      font-size: 26px;
     }
 
-    .cat-card span {
-      font-size: 13px;
-      font-weight: 500;
+    .cat-card.c1 .cat-icon-wrap { background: #FFE0B2; }
+    .cat-card.c2 .cat-icon-wrap { background: #C8E6C9; }
+    .cat-card.c3 .cat-icon-wrap { background: #D1C4E9; }
+    .cat-card.c4 .cat-icon-wrap { background: #BBDEFB; }
+    .cat-card.c5 .cat-icon-wrap { background: #F8BBD9; }
+    .cat-card.c6 .cat-icon-wrap { background: #DCEDC8; }
+
+    .cat-name {
+      font-size: 14px;
+      font-weight: 600;
       color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .cat-sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.4;
     }
 
     /* ── PRODUCTS ── */
@@ -480,25 +513,35 @@
     <p>Gjeni çfarë kërkoni lehtësisht</p>
   </div>
   <div class="cat-grid">
-    <a href="#produktet" class="cat-card">
-      <span class="cat-icon">🍯</span>
-      <span>Mjaltë bio</span>
+    <a href="#produktet" class="cat-card c1">
+      <div class="cat-icon-wrap">🍯</div>
+      <div class="cat-name">Mjaltë bio</div>
+      <div class="cat-sub">100% natyral, direkt nga bletaria</div>
     </a>
-    <a href="#produktet" class="cat-card">
-      <span class="cat-icon">🌱</span>
-      <span>Farë e zezë</span>
+    <a href="#produktet" class="cat-card c2">
+      <div class="cat-icon-wrap">🌿</div>
+      <div class="cat-name">Farë e zezë</div>
+      <div class="cat-sub">Për imunitetin & shëndetin e përgjithshëm</div>
     </a>
-    <a href="#produktet" class="cat-card">
-      <span class="cat-icon">💆</span>
-      <span>Kujdes flokësh</span>
+    <a href="#produktet" class="cat-card c3">
+      <div class="cat-icon-wrap">💆</div>
+      <div class="cat-name">Kujdes flokësh</div>
+      <div class="cat-sub">Vajra & produkte natyrale për flokë</div>
     </a>
-    <a href="#produktet" class="cat-card">
-      <span class="cat-icon">🧔</span>
-      <span>Kujdes mjekre</span>
+    <a href="#produktet" class="cat-card c4">
+      <div class="cat-icon-wrap">🧔</div>
+      <div class="cat-name">Kujdes mjekre</div>
+      <div class="cat-sub">Produkte bio për mjekër të shëndetshme</div>
     </a>
-    <a href="#produktet" class="cat-card">
-      <span class="cat-icon">🌸</span>
-      <span>Parfume</span>
+    <a href="#produktet" class="cat-card c5">
+      <div class="cat-icon-wrap">🌸</div>
+      <div class="cat-name">Parfume natyrale</div>
+      <div class="cat-sub">Esenca & parfume pa kimikate</div>
+    </a>
+    <a href="#produktet" class="cat-card c6">
+      <div class="cat-icon-wrap">🫚</div>
+      <div class="cat-name">Vajra esenciale</div>
+      <div class="cat-sub">Për relaksim, lëkurë & mirëqenie</div>
     </a>
   </div>
 </section>
