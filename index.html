@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bio Shop — Produkte Natyrale & Bio</title>
+  <meta name="description" content="Bio Shop Albania — Mjaltë, farë të zezë, kujdes flokësh & mjekre, parfume natyrale. 100% bio dhe natyrale." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark: #1A5C3A;
+      --green-main: #1D9E75;
+      --green-light: #E1F5EE;
+      --green-hero: #EAF3DE;
+      --green-badge: #C0DD97;
+      --green-text: #27500A;
+      --green-mid: #3B6D11;
+      --text: #1a1a1a;
+      --text-muted: #5c6a5e;
+      --border: #d8e8d0;
+      --bg: #ffffff;
+      --bg-alt: #f7faf7;
+      --radius: 10px;
+      --radius-sm: 6px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--green-dark);
+      text-decoration: none;
+    }
+
+    .nav-logo svg { flex-shrink: 0; }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--green-main); }
+
+    .nav-cart {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--green-main);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .nav-cart:hover { background: var(--green-dark); }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      color: var(--text);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--green-hero) 0%, var(--green-light) 100%);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--green-badge);
+      color: var(--green-mid);
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 99px;
+      padding: 5px 16px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 600;
+      color: var(--green-text);
+      line-height: 1.2;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--green-mid);
+      max-width: 500px;
+      margin: 0 auto 2rem;
+      line-height: 1.75;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--green-main);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 12px 28px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--green-dark); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--green-main);
+      border: 1.5px solid var(--green-main);
+      border-radius: var(--radius-sm);
+      padding: 12px 28px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .btn-outline:hover { background: var(--green-light); }
+
+    /* ── SECTIONS ── */
+    section { padding: 3.5rem 2rem; }
+    section.alt { background: var(--bg-alt); }
+
+    .section-head { text-align: center; margin-bottom: 2rem; }
+    .section-head h2 { font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 0.35rem; }
+    .section-head p { font-size: 14px; color: var(--text-muted); }
+
+    /* ── CATEGORIES ── */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cat-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.15s, transform 0.1s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .cat-card:hover { border-color: var(--green-main); transform: translateY(-2px); }
+
+    .cat-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .cat-card span {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* ── PRODUCTS ── */
+    .prod-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .prod-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: box-shadow 0.15s, transform 0.1s;
+    }
+
+    .prod-card:hover { box-shadow: 0 4px 20px rgba(29,158,117,0.12); transform: translateY(-2px); }
+
+    .prod-img {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+    }
+
+    .prod-body { padding: 0.85rem 1rem 1rem; }
+
+    .prod-tag {
+      font-size: 11px;
+      color: #0F6E56;
+      background: var(--green-light);
+      border-radius: 99px;
+      padding: 2px 10px;
+      display: inline-block;
+      margin-bottom: 7px;
+      font-weight: 500;
+    }
+
+    .prod-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .prod-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .prod-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .prod-price {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--green-main);
+    }
+
+    .prod-btn {
+      background: transparent;
+      color: var(--green-main);
+      border: 1px solid var(--green-main);
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .prod-btn:hover { background: var(--green-light); }
+
+    /* ── TRUST ── */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .trust-item { text-align: center; }
+
+    .trust-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--green-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.75rem;
+      font-size: 22px;
+    }
+
+    .trust-item h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .trust-item p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      background: var(--green-dark);
+      padding: 3.5rem 2rem;
+      text-align: center;
+    }
+
+    .newsletter h2 { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 0.5rem; }
+    .newsletter p { font-size: 14px; color: #9FE1CB; margin-bottom: 1.5rem; }
+
+    .nl-form {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .nl-form input {
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 11px 18px;
+      font-size: 14px;
+      width: 240px;
+      color: var(--green-text);
+      font-family: inherit;
+      outline: none;
+    }
+
+    .nl-form input:focus { outline: 2px solid var(--green-badge); }
+
+    .nl-form button {
+      background: var(--green-main);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 11px 22px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+
+    .nl-form button:hover { background: #179066; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #f0f4f0;
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+    }
+
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand .logo { font-size: 17px; font-weight: 600; color: var(--green-dark); display: flex; align-items: center; gap: 7px; margin-bottom: 0.5rem; }
+    .footer-brand p { font-size: 13px; color: var(--text-muted); max-width: 220px; line-height: 1.5; }
+
+    .footer-col h4 { font-size: 13px; font-weight: 600; margin-bottom: 0.75rem; color: var(--text); }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.4rem; }
+    .footer-col ul li a { font-size: 13px; color: var(--text-muted); text-decoration: none; }
+    .footer-col ul li a:hover { color: var(--green-main); }
+
+    .footer-bottom {
+      max-width: 960px;
+      margin: 1.5rem auto 0;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-bottom p { font-size: 12px; color: var(--text-muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border-bottom: 1px solid var(--border);
+        padding: 1rem 1.25rem;
+        gap: 1rem;
+        z-index: 99;
+      }
+      .hero { padding: 3rem 1.25rem 2.5rem; }
+      section { padding: 2.5rem 1.25rem; }
+      .footer-inner { flex-direction: column; gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4.97-3 9-6.48 9-11a9 9 0 1 0-18 0c0 4.52 4.03 8 9 11z"/></svg>
+    Bio Shop
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#produktet">Produktet</a></li>
+    <li><a href="#kategorite">Kategoritë</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+    <li><a href="#rreth">Rreth nesh</a></li>
+  </ul>
+  <a href="#produktet" class="nav-cart">
+    🛒 Shporta
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Hap menunë">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🌿 100% Natyral &amp; Bio</div>
+  <h1>Natyra në çdo<br>produkt që zgjidhni</h1>
+  <p>Mjaltë, farë të zezë, kujdes flokësh &amp; mjekre, dhe parfume natyrale — të gjitha bio dhe të certifikuara.</p>
+  <div class="hero-btns">
+    <a href="#produktet" class="btn-primary">Shiko produktet</a>
+    <a href="#rreth" class="btn-outline">Mëso më shumë</a>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section id="kategorite">
+  <div class="section-head">
+    <h2>Kategoritë tona</h2>
+    <p>Gjeni çfarë kërkoni lehtësisht</p>
+  </div>
+  <div class="cat-grid">
+    <a href="#produktet" class="cat-card">
+      <span class="cat-icon">🍯</span>
+      <span>Mjaltë bio</span>
+    </a>
+    <a href="#produktet" class="cat-card">
+      <span class="cat-icon">🌱</span>
+      <span>Farë e zezë</span>
+    </a>
+    <a href="#produktet" class="cat-card">
+      <span class="cat-icon">💆</span>
+      <span>Kujdes flokësh</span>
+    </a>
+    <a href="#produktet" class="cat-card">
+      <span class="cat-icon">🧔</span>
+      <span>Kujdes mjekre</span>
+    </a>
+    <a href="#produktet" class="cat-card">
+      <span class="cat-icon">🌸</span>
+      <span>Parfume</span>
+    </a>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="produktet" class="alt">
+  <div class="section-head">
+    <h2>Produktet tona</h2>
+    <p>Cilësi bio, çmime të arsyeshme</p>
+  </div>
+  <div class="prod-grid" id="prodGrid">
+    <div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--text-muted);">
+      <div style="font-size:32px;margin-bottom:8px;">⏳</div>
+      <p>Duke ngarkuar produktet...</p>
+    </div>
+  </div>
+</section>
+
+<script>
+// ── GOOGLE SHEETS CONFIG ──
+const SHEET_ID = '1Zx12eAmUtPTK3M-VGosgSmpY8imXqqlWu4Ycv838-eM';
+const SHEET_NAME = 'Sheet1';
+
+// Ngjyrat per kategorite
+const ngjyrat = {
+  'Mjaltë': '#EAF3DE',
+  'Farë e zezë': '#e8e8e5',
+  'Kujdes flokësh': '#EEEDFE',
+  'Kujdes mjekre': '#E1F5EE',
+  'Parfum': '#FBEAF0',
+  'default': '#f0f4f0'
+};
+
+async function ngarkoProdukte() {
+  const grid = document.getElementById('prodGrid');
+  try {
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
+    const res = await fetch(url);
+    const text = await res.text();
+    const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/)[1]);
+    const rows = json.table.rows;
+
+    if (!rows || rows.length === 0) {
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--text-muted);">Nuk ka produkte ende.</div>';
+      return;
+    }
+
+    grid.innerHTML = rows.map(row => {
+      const emri      = row.c[0]?.v || '';
+      const cmimi     = row.c[1]?.v || '';
+      const kategoria = row.c[2]?.v || '';
+      const emoji     = row.c[3]?.v || '🌿';
+      const pershkrim = row.c[4]?.v || '';
+      const fotoRaw   = row.c[5]?.v || '';
+      const videoRaw  = row.c[6]?.v || '';
+      const ngjyra    = ngjyrat[kategoria] || ngjyrat['default'];
+
+      // Extrakto video
+      let videoId = '', videoType = '';
+      const ytMatch = videoRaw.match(/(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+      const cloudMatch = videoRaw.match(/cloud_name=([^&]+)&public_id=([^&]+)/);
+      if (ytMatch) { videoId = ytMatch[1]; videoType = 'youtube'; }
+      else if (cloudMatch) { videoId = `https://res.cloudinary.com/${cloudMatch[1]}/video/upload/${cloudMatch[2]}`; videoType = 'cloudinary'; }
+      else if (videoRaw.includes('.mp4') || videoRaw.includes('cloudinary')) { videoId = videoRaw; videoType = 'cloudinary'; }
+
+      // Split multiple photos
+      const fotos = fotoRaw.split(',').map(f => f.trim()).filter(Boolean).map(f => {
+        const dm = f.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+        return dm ? `https://drive.google.com/uc?export=view&id=${dm[1]}` : f;
+      });
+      if (fotos.length === 0) fotos.push('');
+
+      // Build carousel slides
+      const cardId = `card_${Math.random().toString(36).substr(2,9)}`;
+      const slides = fotos.map((f, i) => {
+        const slide = f
+          ? `<img src="${f}" alt="${emri}" style="width:100%;height:100%;object-fit:cover;flex-shrink:0;" />`
+          : `<span style="font-size:44px;flex-shrink:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;">${emoji}</span>`;
+        return `<div class="carousel-slide">${slide}</div>`;
+      }).join('');
+
+      const arrows = fotos.length > 1 ? `
+        <button class="carousel-arrow left" onclick="slideCarousel('${cardId}',-1)">‹</button>
+        <button class="carousel-arrow right" onclick="slideCarousel('${cardId}',1)">›</button>
+        <div class="carousel-dots">${fotos.map((_,i) => `<span class="cdot${i===0?' active':''}" id="${cardId}_dot_${i}"></span>`).join('')}</div>` : '';
+
+      const videoOverlay = videoId
+        ? `<div class="prod-video-overlay" onclick="hapVideoInline(this, '${videoId}', '${videoType}')" title="Shiko videon">
+            <div class="play-btn">▶</div>
+           </div>`
+        : '';
+
+      // Store product data for full page
+      const prodData = encodeURIComponent(JSON.stringify({emri, cmimi, kategoria, emoji, pershkrim, fotos, videoId, videoType, ngjyra}));
+
+      return `
+        <div class="prod-card">
+          <div class="prod-img" style="background:${ngjyra};position:relative;overflow:hidden;">
+            <div class="carousel-track" id="${cardId}" style="display:flex;width:100%;height:100%;transition:transform 0.3s ease;" data-index="0" data-total="${fotos.length}">
+              ${slides}
+            </div>
+            ${arrows}
+            ${videoOverlay}
+          </div>
+          <div class="prod-body">
+            <span class="prod-tag">${kategoria}</span>
+            <div class="prod-name">${emri}</div>
+            <div class="prod-desc">${pershkrim}</div>
+            <div class="prod-footer" style="margin-top:8px;">
+              <span class="prod-price">${cmimi}</span>
+              <div style="display:flex;gap:6px;">
+                <button class="prod-btn" onclick="hapFaqenProduktit('${prodData}')">🔍 Shiko</button>
+                <button class="prod-btn" onclick="shtoShporte(this)">+ Shportë</button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+
+  } catch(e) {
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--text-muted);">
+        <div style="font-size:32px;margin-bottom:8px;">⚠️</div>
+        <p>Produktet nuk u ngarkuan. Kontrolloni që Google Sheets është publik.</p>
+      </div>`;
+  }
+}
+
+ngarkoProdukte();
+</script>
+
+<!-- TRUST -->
+<section id="rreth">
+  <div class="section-head">
+    <h2>Pse Bio Shop?</h2>
+    <p>Cilësia dhe besueshmëria janë vlerat tona</p>
+  </div>
+  <div class="trust-grid">
+    <div class="trust-item">
+      <div class="trust-icon">🏅</div>
+      <h4>Certifikuar bio</h4>
+      <p>Të gjitha produktet kanë certifikim organik të verifikuar</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🚚</div>
+      <h4>Dërgesa falas</h4>
+      <p>Mbi 5,000 L në Tiranë, mbi 8,000 L në qytete tjera</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">↩️</div>
+      <h4>Kthim i lehtë</h4>
+      <p>30 ditë kthim pa pyetje shtesë</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🌿</div>
+      <h4>100% natyral</h4>
+      <p>Pa kimikate, pa konservantë artificialë</p>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO SECTION -->
+<section id="video">
+  <div class="section-head">
+    <h2>Shikoni produktet tona</h2>
+    <p>Video prezantime dhe demonstrime të produkteve bio</p>
+  </div>
+  <div class="video-grid">
+
+    <!-- VIDEO 1 — Prezantim Dyqani -->
+    <div class="video-card">
+      <div class="video-wrap" id="videoDyqani">
+        <div class="video-placeholder">
+          <span class="video-icon">🏪</span>
+          <span class="video-label">Video Prezantim Dyqani</span>
+          <span class="video-hint">Zëvendësoni linkun e YouTube këtu</span>
+        </div>
+      </div>
+      <div class="video-info">
+        <h3>Dyqani ynë fizik</h3>
+        <p>Vizitoni Bio Shop në qendër të Kamzës — 100% produkte natyrale</p>
+      </div>
+    </div>
+
+    <!-- VIDEO 2 — Produkte -->
+    <div class="video-card">
+      <div class="video-wrap" id="videoProdukte">
+        <div class="video-placeholder">
+          <span class="video-icon">🌿</span>
+          <span class="video-label">Video Produkteve</span>
+          <span class="video-hint">Zëvendësoni linkun e YouTube këtu</span>
+        </div>
+      </div>
+      <div class="video-info">
+        <h3>Produktet tona bio</h3>
+        <p>Mjaltë, farë e zezë, kujdes flokësh dhe parfume natyrale</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .video-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .video-wrap {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 */
+    background: #f0f4f0;
+    overflow: hidden;
+  }
+  .video-wrap iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+  .video-placeholder {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--green-hero);
+    cursor: pointer;
+  }
+  .video-icon { font-size: 36px; }
+  .video-label { font-size: 14px; font-weight: 600; color: var(--green-text); }
+  .video-hint { font-size: 11px; color: var(--green-mid); text-align: center; padding: 0 1rem; }
+  .video-info { padding: 1rem 1.1rem; }
+  .video-info h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .video-info p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+</style>
+
+<script>
+  // ── VIDEOT E YOUTUBE ──
+  // Zëvendësoni me ID-të tuaja të YouTube
+  // Shembull: https://www.youtube.com/watch?v=XXXXXXXXXXX → ID është XXXXXXXXXXX
+
+  const videoDyqani  = 'https://res.cloudinary.com/difzmgyff/video/upload/VID-20260623-WA0000_utagiw'; // Video e dyqanit fizik
+  const videoProdukte = ''; // ← Vendosni ID-në e videos së produkteve këtu
+
+  function vendosVideo(url, elId) {
+    if (!url) return;
+    const wrap = document.getElementById(elId);
+    if (url.includes('cloudinary') || url.includes('.mp4')) {
+      wrap.innerHTML = `<video 
+        src="${url}" 
+        controls 
+        style="width:100%;height:100%;border-radius:10px;background:#000;">
+      </video>`;
+    } else {
+      wrap.innerHTML = `<iframe
+        src="https://www.youtube.com/embed/${url}"
+        title="Bio Shop Video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>`;
+    }
+  }
+
+  vendosVideo(videoDyqani, 'videoDyqani');
+  vendosVideo(videoProdukte, 'videoProdukte');
+</script>
+
+<!-- DYQANI FIZIK -->
+<section class="alt" id="dyqani">
+  <div class="section-head">
+    <h2>Vizitoni dyqanin tonë</h2>
+    <p>Na gjeni fizikisht në zemër të Kamzës</p>
+  </div>
+  <div class="shop-layout">
+
+    <!-- FOTO DYQANIT -->
+    <div class="shop-photo-wrap">
+      <label class="shop-photo-label" for="shopPhotoInput" id="photoLabel">
+        <div class="shop-photo-placeholder" id="photoPlaceholder">
+          <span style="font-size:40px;">📷</span>
+          <span style="font-size:15px;font-weight:500;margin-top:8px;">Klikoni për të ngarkuar foton e dyqanit</span>
+          <span style="font-size:12px;color:#5c6a5e;">JPG, PNG — rekomandohet 800×500px</span>
+        </div>
+        <img id="shopPhoto" src="" alt="Dyqani fizik Bio Shop Kamëz" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:10px;" />
+      </label>
+      <input type="file" id="shopPhotoInput" accept="image/*" style="display:none;" onchange="ngarkoFoto(event)" />
+      <p style="font-size:11px;color:#5c6a5e;text-align:center;margin-top:8px;">⚠️ Kjo foto ruhet vetëm lokalisht. Për publikim, zëvendësojeni <code>src=""</code> me linkun e fotos tuaj.</p>
+    </div>
+
+    <!-- INFO + HARTA -->
+    <div class="shop-info">
+      <div class="shop-detail">
+        <span class="shop-icon">📍</span>
+        <div>
+          <strong>Adresa</strong>
+          <p>Qendra e Kamzës, Tiranë, Shqipëri</p>
+        </div>
+      </div>
+      <div class="shop-detail">
+        <span class="shop-icon">🕗</span>
+        <div>
+          <strong>Orari</strong>
+          <p>Çdo ditë: 08:00 – 20:00</p>
+        </div>
+      </div>
+      <div class="shop-detail">
+        <span class="shop-icon">📞</span>
+        <div>
+          <strong>Telefon</strong>
+          <p><a href="tel:+355600000000" style="color:var(--green-main);text-decoration:none;">+355 60 000 0000</a></p>
+        </div>
+      </div>
+      <a
+        href="https://www.google.com/maps/search/Kamez+Tirane+Shqiperi"
+        target="_blank"
+        rel="noopener"
+        class="btn-primary"
+        style="display:inline-flex;align-items:center;gap:8px;margin-top:0.5rem;width:fit-content;"
+      >
+        🗺️ Hap në Google Maps
+      </a>
+
+      <!-- HARTA E NGULITUR -->
+      <div class="shop-map">
+        <iframe
+          title="Vendndodhja e Bio Shop Kamëz"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11986.5!2d19.7700!3d41.3800!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1350310f0b1b1b1b%3A0x0!2sKam%C3%ABz%2C%20Albania!5e0!3m2!1ssq!2s!4v1700000000000"
+          width="100%"
+          height="200"
+          style="border:0;border-radius:8px;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .shop-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .shop-photo-wrap { display: flex; flex-direction: column; }
+  .shop-photo-label {
+    display: block;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px dashed var(--border);
+    transition: border-color 0.15s;
+  }
+  .shop-photo-label:hover { border-color: var(--green-main); }
+  .shop-photo-placeholder {
+    height: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: var(--bg);
+    color: var(--text-muted);
+  }
+  .shop-info { display: flex; flex-direction: column; gap: 1rem; }
+  .shop-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.9rem 1rem;
+  }
+  .shop-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .shop-detail strong { font-size: 13px; font-weight: 600; display: block; margin-bottom: 2px; }
+  .shop-detail p { font-size: 13px; color: var(--text-muted); margin: 0; }
+  .shop-map { margin-top: 0.25rem; }
+  @media (max-width: 640px) {
+    .shop-layout { grid-template-columns: 1fr; }
+    .shop-photo-placeholder { height: 200px; }
+  }
+</style>
+
+<script>
+  function ngarkoFoto(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = document.getElementById('shopPhoto');
+      const placeholder = document.getElementById('photoPlaceholder');
+      img.src = ev.target.result;
+      img.style.display = 'block';
+      placeholder.style.display = 'none';
+      document.querySelector('.shop-photo-label').style.border = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+</script>
+
+<!-- NEWSLETTER -->
+<div class="newsletter" id="kontakt">
+  <h2>Qëndro i informuar</h2>
+  <p>Oferta ekskluzive dhe produkte të reja direkt tek ju</p>
+  <form class="nl-form" onsubmit="regjistrohu(event)">
+    <input type="email" placeholder="emaili@juaj.com" required aria-label="Adresa juaj e emailit" />
+    <button type="submit">Abonohu</button>
+  </form>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4.97-3 9-6.48 9-11a9 9 0 1 0-18 0c0 4.52 4.03 8 9 11z"/></svg>
+        Bio Shop
+      </div>
+      <p>Produkte natyrale dhe bio për shëndetin dhe bukurinë tuaj.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Produkte</h4>
+      <ul>
+        <li><a href="#produktet">Mjaltë bio</a></li>
+        <li><a href="#produktet">Farë e zezë</a></li>
+        <li><a href="#produktet">Kujdes flokësh</a></li>
+        <li><a href="#produktet">Kujdes mjekre</a></li>
+        <li><a href="#produktet">Parfume</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Informacion</h4>
+      <ul>
+        <li><a href="#rreth">Rreth nesh</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+        <li><a href="#">Politika e kthimit</a></li>
+        <li><a href="#">Dërgesa</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Na kontaktoni</h4>
+      <ul>
+        <li><a href="tel:+355000000000">📞 +355 00 000 0000</a></li>
+        <li><a href="mailto:info@bioshop.al">✉️ info@bioshop.al</a></li>
+        <li><a href="#">📍 Tiranë, Shqipëri</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Bio Shop Albania. Të gjitha të drejtat e rezervuara.</p>
+    <p>Dizenjuar me ❤️ për shëndetin tuaj</p>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const toggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+  // Close menu on link click (mobile)
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // Add to cart feedback
+  function shtoShporte(btn) {
+    const original = btn.textContent;
+    btn.textContent = '✓ Shtuar!';
+    btn.style.background = '#1D9E75';
+    btn.style.color = '#fff';
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 1500);
+  }
+
+  // Newsletter subscribe
+  function regjistrohu(e) {
+    e.preventDefault();
+    const input = e.target.querySelector('input');
+    const btn = e.target.querySelector('button');
+    btn.textContent = '✓ U regjistruat!';
+    btn.style.background = '#27500A';
+    input.value = '';
+    setTimeout(() => {
+      btn.textContent = 'Abonohu';
+      btn.style.background = '';
+    }, 3000);
+  }
+
+  // WhatsApp number (ndrysho me numrin tuaj)
+  const WA_NUMBER = '355600000000'; // ← Vendos numrin tuaj këtu
+  const WA_MSG = encodeURIComponent('Përshëndetje! Dua të porosis nga Bio Shop 🌿');
+  document.getElementById('waBtn').href = `https://wa.me/${WA_NUMBER}?text=${WA_MSG}`;
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+<!-- WHATSAPP FLOATING BUTTON -->
+<a id="waBtn" href="#" target="_blank" rel="noopener" aria-label="Na kontaktoni në WhatsApp" class="wa-btn">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#fff">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+  <span class="wa-label">Na shkruani</span>
+</a>
+
+<style>
+  .wa-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 999;
+    background: #25D366;
+    color: #fff;
+    border-radius: 50px;
+    padding: 12px 20px 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: waPulse 2.5s infinite;
+  }
+  .wa-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 22px rgba(37,211,102,0.55);
+    animation: none;
+  }
+  .wa-label { white-space: nowrap; }
+  @keyframes waPulse {
+    0%, 100% { box-shadow: 0 4px 16px rgba(37,211,102,0.4); }
+    50% { box-shadow: 0 4px 28px rgba(37,211,102,0.7); }
+  }
+  @media (max-width: 480px) {
+    .wa-btn { bottom: 16px; right: 16px; padding: 13px; border-radius: 50%; }
+    .wa-label { display: none; }
+  }
+</style>
+
+<!-- PRODUCT PAGE MODAL -->
+<div id="prodModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;overflow-y:auto;">
+  <div style="max-width:800px;margin:2rem auto;background:var(--bg);border-radius:var(--radius);overflow:hidden;position:relative;">
+    <button onclick="mbyllProdModal()" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:26px;cursor:pointer;z-index:10;color:var(--text);">✕</button>
+    <div id="prodModalContent"></div>
+  </div>
+</div>
+
+<style>
+  /* CAROUSEL */
+  .carousel-slide { flex-shrink:0; width:100%; height:100%; }
+  .carousel-arrow {
+    position:absolute; top:50%; transform:translateY(-50%);
+    background:rgba(255,255,255,0.85); border:none; border-radius:50%;
+    width:32px; height:32px; font-size:20px; cursor:pointer; z-index:5;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+  }
+  .carousel-arrow.left { left:8px; }
+  .carousel-arrow.right { right:8px; }
+  .carousel-dots { position:absolute; bottom:8px; left:50%; transform:translateX(-50%); display:flex; gap:5px; }
+  .cdot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.5); }
+  .cdot.active { background:#fff; }
+
+  /* FULL PRODUCT PAGE */
+  .modal-gallery { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:8px; padding:1rem; }
+  .modal-gallery img { width:100%; height:120px; object-fit:cover; border-radius:8px; cursor:pointer; border:2px solid transparent; transition:border-color 0.15s; }
+  .modal-gallery img.active { border-color:var(--green-main); }
+  .modal-main-img { width:100%; height:300px; object-fit:cover; }
+  .modal-body { padding:1.25rem 1.5rem 2rem; }
+  .modal-tag { font-size:12px; color:#0F6E56; background:var(--green-light); border-radius:99px; padding:3px 12px; display:inline-block; margin-bottom:10px; }
+  .modal-name { font-size:22px; font-weight:600; margin-bottom:6px; }
+  .modal-desc { font-size:14px; color:var(--text-muted); margin-bottom:1rem; line-height:1.6; }
+  .modal-price { font-size:26px; font-weight:600; color:var(--green-main); margin-bottom:1.25rem; }
+  .modal-btns { display:flex; gap:10px; flex-wrap:wrap; }
+</style>
+
+<script>
+  function slideCarousel(id, dir) {
+    const track = document.getElementById(id);
+    let idx = parseInt(track.dataset.index);
+    const total = parseInt(track.dataset.total);
+    idx = (idx + dir + total) % total;
+    track.dataset.index = idx;
+    track.style.transform = `translateX(-${idx * 100}%)`;
+    // update dots
+    for (let i = 0; i < total; i++) {
+      const dot = document.getElementById(`${id}_dot_${i}`);
+      if (dot) dot.className = i === idx ? 'cdot active' : 'cdot';
+    }
+  }
+
+  function hapFaqenProduktit(encoded) {
+    const p = JSON.parse(decodeURIComponent(encoded));
+    const modal = document.getElementById('prodModal');
+    const content = document.getElementById('prodModalContent');
+
+    const mainImg = p.fotos[0]
+      ? `<img src="${p.fotos[0]}" alt="${p.emri}" class="modal-main-img" id="modalMainImg" />`
+      : `<div class="modal-main-img" style="background:${p.ngjyra};display:flex;align-items:center;justify-content:center;font-size:60px;">${p.emoji}</div>`;
+
+    const gallery = p.fotos.length > 1
+      ? `<div class="modal-gallery">${p.fotos.map((f,i) =>
+          `<img src="${f}" onclick="zgjidhoFoto(this,'${f}')" class="${i===0?'active':''}" />`
+        ).join('')}</div>`
+      : '';
+
+    const video = p.videoId
+      ? p.videoType === 'cloudinary'
+        ? `<video src="${p.videoId}" controls style="width:100%;border-radius:8px;margin-top:1rem;"></video>`
+        : `<iframe src="https://www.youtube.com/embed/${p.videoId}" style="width:100%;aspect-ratio:16/9;border:none;border-radius:8px;margin-top:1rem;" allowfullscreen></iframe>`
+      : '';
+
+    content.innerHTML = `
+      <div id="modalMainImg">${mainImg}</div>
+      ${gallery}
+      <div class="modal-body">
+        <span class="modal-tag">${p.kategoria}</span>
+        <div class="modal-name">${p.emri}</div>
+        <div class="modal-desc">${p.pershkrim}</div>
+        <div class="modal-price">${p.cmimi}</div>
+        <div class="modal-btns">
+          <button class="btn-primary" onclick="shtoShporte(this)">+ Shto në shportë</button>
+          <a href="https://wa.me/355600000000?text=Dua%20të%20porosis%20${encodeURIComponent(p.emri)}" target="_blank" class="btn-outline" style="text-decoration:none;">💬 Porosit WhatsApp</a>
+        </div>
+        ${video}
+      </div>`;
+
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function zgjidhoFoto(el, src) {
+    document.getElementById('modalMainImg').querySelector('img').src = src;
+    document.querySelectorAll('.modal-gallery img').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function mbyllProdModal() {
+    document.getElementById('prodModal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('prodModal').addEventListener('click', function(e) {
+    if (e.target === this) mbyllProdModal();
+  });
+</script>
+
+<!-- VIDEO MODAL -->
+<div class="video-modal" id="videoModal" onclick="mbyllVideo(event)">
+  <div class="video-modal-inner">
+    <button class="video-modal-close" onclick="mbyllVideo(null, true)">✕</button>
+    <div id="videoModalContent"></div>
+  </div>
+</div>
+
+<style>
+  .prod-video-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .prod-video-overlay:hover { background: rgba(0,0,0,0.45); }
+  .play-btn {
+    width: 48px;
+    height: 48px;
+    background: rgba(255,255,255,0.92);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #FF0000;
+    padding-left: 4px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    transition: transform 0.15s;
+  }
+  .prod-video-overlay:hover .play-btn { transform: scale(1.1); }
+  .video-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+  .video-modal.open { display: flex; }
+  .video-modal-inner {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    aspect-ratio: 16/9;
+  }
+  .video-modal-inner > div { width: 100%; height: 100%; }
+  .video-modal-inner iframe { width: 100%; height: 100%; border: none; border-radius: 10px; }
+  .video-modal-close {
+    position: absolute;
+    top: -40px; right: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  function hapVideoInline(overlay, id, type) {
+    const prodImg = overlay.parentElement;
+    if (type === 'cloudinary') {
+      prodImg.innerHTML = `<video 
+        src="${id}" 
+        controls 
+        autoplay 
+        style="width:100%;height:100%;border-radius:10px 10px 0 0;background:#000;">
+      </video>`;
+    } else {
+      prodImg.innerHTML = `<iframe 
+        src="https://www.youtube.com/embed/${id}?autoplay=1" 
+        allow="autoplay; fullscreen" 
+        allowfullscreen
+        style="width:100%;height:100%;border:none;border-radius:10px 10px 0 0;">
+      </iframe>`;
+    }
+  }
+
+  function mbyllVideo(e, force) {
+    if (force || (e && e.target.id === 'videoModal')) {
+      const modal = document.getElementById('videoModal');
+      document.getElementById('videoModalContent').innerHTML = '';
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+</script>
+
+</body>
+</html>
