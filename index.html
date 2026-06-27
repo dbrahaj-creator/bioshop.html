@@ -571,34 +571,25 @@ async function ngarkoProdukte() {
       });
       if (fotos.length === 0) fotos.push('');
 
-      // Build carousel slides (photos first, video slide last if exists)
+      // Build carousel slides
       const cardId = `card_${Math.random().toString(36).substr(2,9)}`;
-      const photoSlides = fotos.map((f, i) => {
+      const slides = fotos.map((f, i) => {
         const slide = f
           ? `<img src="${f}" alt="${emri}" style="width:100%;height:100%;object-fit:cover;flex-shrink:0;" />`
           : `<span style="font-size:44px;flex-shrink:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;">${emoji}</span>`;
         return `<div class="carousel-slide">${slide}</div>`;
-      });
+      }).join('');
 
-      // Add video as the last slide so play button only shows when swiped to it
-      const videoSlide = videoId
-        ? `<div class="carousel-slide" style="flex-shrink:0;width:100%;height:100%;background:#000;display:flex;align-items:center;justify-content:center;">
-             <div class="prod-video-overlay" onclick="hapVideoInline(this, '${videoId}', '${videoType}')" title="Shiko videon" style="position:relative;width:100%;height:100%;background:rgba(0,0,0,0.45);">
-               <div class="play-btn">▶</div>
-             </div>
-           </div>`
-        : '';
-
-      const allSlides = [...photoSlides, ...(videoSlide ? [videoSlide] : [])];
-      const totalSlides = allSlides.length;
-      const slides = allSlides.join('');
-
-      const arrows = totalSlides > 1 ? `
+      const arrows = fotos.length > 1 ? `
         <button class="carousel-arrow left" onclick="slideCarousel('${cardId}',-1)">‹</button>
         <button class="carousel-arrow right" onclick="slideCarousel('${cardId}',1)">›</button>
-        <div class="carousel-dots">${allSlides.map((_,i) => `<span class="cdot${i===0?' active':''}" id="${cardId}_dot_${i}"></span>`).join('')}</div>` : '';
+        <div class="carousel-dots">${fotos.map((_,i) => `<span class="cdot${i===0?' active':''}" id="${cardId}_dot_${i}"></span>`).join('')}</div>` : '';
 
-      const videoOverlay = ''; // No longer needed — video is its own slide
+      const videoOverlay = videoId
+        ? `<div class="prod-video-overlay" onclick="hapVideoInline(this, '${videoId}', '${videoType}')" title="Shiko videon">
+            <div class="play-btn">▶</div>
+           </div>`
+        : '';
 
       // Store product data for full page
       const prodData = encodeURIComponent(JSON.stringify({emri, cmimi, kategoria, emoji, pershkrim, fotos, videoId, videoType, ngjyra}));
@@ -606,7 +597,7 @@ async function ngarkoProdukte() {
       return `
         <div class="prod-card">
           <div class="prod-img" style="background:${ngjyra};position:relative;overflow:hidden;">
-            <div class="carousel-track" id="${cardId}" style="display:flex;width:100%;height:100%;transition:transform 0.3s ease;" data-index="0" data-total="${totalSlides}">
+            <div class="carousel-track" id="${cardId}" style="display:flex;width:100%;height:100%;transition:transform 0.3s ease;" data-index="0" data-total="${fotos.length}">
               ${slides}
             </div>
             ${arrows}
@@ -1108,7 +1099,8 @@ ngarkoProdukte();
   .modal-gallery { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:8px; padding:1rem; }
   .modal-gallery img { width:100%; height:120px; object-fit:cover; border-radius:8px; cursor:pointer; border:2px solid transparent; transition:border-color 0.15s; }
   .modal-gallery img.active { border-color:var(--green-main); }
-  .modal-main-img { width:100%; height:300px; object-fit:cover; }
+  .modal-main-img { width:100%; height:420px; object-fit:contain; background:#f7faf7; }
+  @media (max-width: 640px) { .modal-main-img { height:260px; } }
   .modal-body { padding:1.25rem 1.5rem 2rem; }
   .modal-tag { font-size:12px; color:#0F6E56; background:var(--green-light); border-radius:99px; padding:3px 12px; display:inline-block; margin-bottom:10px; }
   .modal-name { font-size:22px; font-weight:600; margin-bottom:6px; }
@@ -1256,21 +1248,20 @@ ngarkoProdukte();
 
 <script>
   function hapVideoInline(overlay, id, type) {
-    // Replace just the overlay inside the video slide with the actual player
-    const slide = overlay.parentElement;
+    const prodImg = overlay.parentElement;
     if (type === 'cloudinary') {
-      slide.innerHTML = `<video 
+      prodImg.innerHTML = `<video 
         src="${id}" 
         controls 
         autoplay 
-        style="width:100%;height:100%;object-fit:contain;background:#000;">
+        style="width:100%;height:100%;border-radius:10px 10px 0 0;background:#000;">
       </video>`;
     } else {
-      slide.innerHTML = `<iframe 
+      prodImg.innerHTML = `<iframe 
         src="https://www.youtube.com/embed/${id}?autoplay=1" 
         allow="autoplay; fullscreen" 
         allowfullscreen
-        style="width:100%;height:100%;border:none;">
+        style="width:100%;height:100%;border:none;border-radius:10px 10px 0 0;">
       </iframe>`;
     }
   }
