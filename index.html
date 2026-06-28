@@ -1125,23 +1125,47 @@ ngarkoProdukte();
       shporta.push({ emri, cmimi: parseFloat(cmimi), emoji, foto, sasia: 1 });
     }
     perditesoShporte();
-    // Button feedback
-    const original = btn.textContent;
-    btn.textContent = '✓ Shtuar!';
-    btn.style.background = '#1D9E75';
-    btn.style.color = '#fff';
-    setTimeout(() => {
-      btn.textContent = original;
-      btn.style.background = '';
-      btn.style.color = '';
-    }, 1200);
+    // Mark all buttons for this product as "Shtuar"
+    document.querySelectorAll('.btn-shporte').forEach(b => {
+      if (b.dataset.emri === emri) {
+        b.textContent = '✓ Shtuar!';
+        b.style.background = '#1D9E75';
+        b.style.color = '#fff';
+        b.style.borderColor = '#1D9E75';
+      }
+    });
+  }
+
+  function hiqNgaShporte(emri) {
+    shporta = shporta.filter(i => i.emri !== emri);
+    perditesoShporte();
+    // Reset buttons for this product
+    document.querySelectorAll('.btn-shporte').forEach(b => {
+      if (b.dataset.emri === emri) {
+        b.textContent = '+ Shportë';
+        b.style.background = '';
+        b.style.color = '';
+        b.style.borderColor = '';
+      }
+    });
   }
 
   function ndryshoSasia(emri, delta) {
     const item = shporta.find(i => i.emri === emri);
     if (!item) return;
     item.sasia += delta;
-    if (item.sasia <= 0) shporta = shporta.filter(i => i.emri !== emri);
+    if (item.sasia <= 0) {
+      shporta = shporta.filter(i => i.emri !== emri);
+      // Reset card button
+      document.querySelectorAll('.btn-shporte').forEach(b => {
+        if (b.dataset.emri === emri) {
+          b.textContent = '+ Shportë';
+          b.style.background = '';
+          b.style.color = '';
+          b.style.borderColor = '';
+        }
+      });
+    }
     perditesoShporte();
   }
 
