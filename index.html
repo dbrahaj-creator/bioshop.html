@@ -316,30 +316,42 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: var(--green-main);
-      padding: 10px 14px;
-      margin: 0 -1px -1px -1px;
+      background: linear-gradient(135deg, #1a5c42 0%, #2d8a63 100%);
+      padding: 12px 14px;
+      border-radius: 0 0 12px 12px;
     }
 
     .prod-price {
-      font-size: 18px;
-      font-weight: 600;
+      font-size: 17px;
+      font-weight: 700;
       color: #fff;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      min-width: 0;
+      flex-shrink: 1;
+      margin-right: 8px;
+    }
+
+    .prod-btn-group {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
     }
 
     .prod-btn {
-      background: #fff;
-      color: var(--green-main);
-      border: none;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.4);
       border-radius: var(--radius-sm);
-      padding: 6px 12px;
+      padding: 6px 11px;
       font-size: 12px;
       font-weight: 500;
       cursor: pointer;
-      transition: opacity 0.15s;
+      transition: background 0.15s;
+      white-space: nowrap;
     }
 
-    .prod-btn:hover { opacity: 0.85; }
+    .prod-btn:hover { background: rgba(255,255,255,0.28); }
 
     /* ── TRUST ── */
     .trust-grid {
@@ -654,8 +666,8 @@ async function ngarkoProdukte() {
             <div class="prod-name">${emri}</div>
             <div class="prod-desc">${pershkrim}</div>
             <div class="prod-footer">
-              <span class="prod-price">${cmimi}</span>
-              <div style="display:flex;gap:6px;">
+              <span class="prod-price">${cmimi} L</span>
+              <div class="prod-btn-group">
                 <button class="prod-btn" onclick="hapFaqenProduktit('${prodData}')">🔍 Shiko</button>
                 <button class="prod-btn" onclick="shtoShporte(this)">+ Shportë</button>
               </div>
