@@ -701,7 +701,7 @@ const ngjyrat = {
 async function ngarkoProdukte() {
   const grid = document.getElementById('prodGrid');
   try {
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}&t=${Date.now()}`;
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
     const res = await fetch(url);
     const text = await res.text();
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/)[1]);
@@ -775,7 +775,7 @@ async function ngarkoProdukte() {
               <span class="prod-price">${cmimi} L</span>
               <div class="prod-btn-group">
                 <button class="prod-btn btn-shiko" onclick="hapFaqenProduktit('${prodData}')">🔍 Shiko</button>
-                <button class="prod-btn btn-shporte" onclick="shtoShporte(this,'${emri}','${cmimi}','${emoji}','${fotos[0]||\'\'}')">+ Shportë</button>
+                <button class="prod-btn btn-shporte" onclick="shtoShporte(this,this.dataset.emri,this.dataset.cmimi,this.dataset.emoji,this.dataset.foto)" data-emri="${emri}" data-cmimi="${cmimi}" data-emoji="${emoji}" data-foto="${fotos[0]||''}">+ Shportë</button>
               </div>
             </div>
           </div>
@@ -1174,9 +1174,9 @@ ngarkoProdukte();
             <div class="cart-item-price">${item.cmimi.toLocaleString()} L</div>
           </div>
           <div class="cart-item-qty">
-            <button class="qty-btn" onclick="ndryshoSasia('${item.emri.replace(/'/g,"\'")}', -1)">−</button>
+            <button class="qty-btn" onclick="ndryshoSasia(this.dataset.emri,-1)" data-emri="${item.emri}">−</button>
             <span class="qty-num">${item.sasia}</span>
-            <button class="qty-btn" onclick="ndryshoSasia('${item.emri.replace(/'/g,"\'")}', 1)">+</button>
+            <button class="qty-btn" onclick="ndryshoSasia(this.dataset.emri,1)" data-emri="${item.emri}">+</button>
           </div>
         </div>`;
     }).join('');
@@ -1530,7 +1530,6 @@ ngarkoProdukte();
 
 </body>
 </html>
-
 
 
 
