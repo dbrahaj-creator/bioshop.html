@@ -602,7 +602,7 @@ async function ngarkoProdukte() {
       return;
     }
 
-    grid.innerHTML = rows.map(row => {
+    grid.innerHTML = rows.slice(1).map(row => {
       const emri      = row.c[0]?.v || '';
       const cmimi     = row.c[1]?.v || '';
       const kategoria = row.c[2]?.v || '';
@@ -1360,5 +1360,8 @@ ngarkoProdukte();
 
 </body>
 </html>
+
+
+
 
 
