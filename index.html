@@ -96,6 +96,104 @@
 
     .nav-cart:hover { background: var(--green-dark); }
 
+    .cart-badge {
+      background: #E8A020;
+      color: #fff;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 1px 7px;
+      margin-left: 4px;
+    }
+
+    /* ── CART DRAWER ── */
+    .cart-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 9998;
+    }
+    .cart-backdrop.open { display: block; }
+    .cart-drawer {
+      position: fixed;
+      top: 0; right: -420px;
+      width: 380px;
+      max-width: 95vw;
+      height: 100%;
+      background: #fff;
+      z-index: 9999;
+      box-shadow: -4px 0 32px rgba(0,0,0,0.15);
+      transition: right 0.3s cubic-bezier(.4,0,.2,1);
+      display: flex;
+      flex-direction: column;
+      border-radius: 16px 0 0 16px;
+      overflow: hidden;
+    }
+    .cart-drawer.open { right: 0; }
+    .cart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .cart-header h3 { font-size: 16px; font-weight: 600; margin: 0; }
+    .cart-close {
+      background: none; border: none; font-size: 22px;
+      cursor: pointer; color: var(--text-muted); padding: 2px 6px; border-radius: 50%;
+    }
+    .cart-close:hover { background: var(--bg-alt); }
+    .cart-items { flex: 1; overflow-y: auto; padding: 12px 18px; }
+    .cart-empty {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; height: 100%; gap: 10px;
+      color: var(--text-muted); font-size: 14px;
+    }
+    .cart-empty span { font-size: 42px; }
+    .cart-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+    }
+    .cart-item-emoji {
+      width: 48px; height: 48px; border-radius: 8px;
+      background: var(--green-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0; overflow: hidden;
+    }
+    .cart-item-emoji img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+    .cart-item-info { flex: 1; min-width: 0; }
+    .cart-item-name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cart-item-price { font-size: 13px; color: var(--green-main); font-weight: 600; }
+    .cart-item-qty { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .qty-btn {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--bg-alt);
+      cursor: pointer; font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; color: var(--text);
+    }
+    .qty-btn:hover { background: var(--green-light); }
+    .qty-num { font-size: 13px; font-weight: 600; min-width: 18px; text-align: center; }
+    .cart-footer {
+      padding: 14px 18px; border-top: 1px solid var(--border);
+      flex-shrink: 0; background: #fff;
+    }
+    .cart-total {
+      display: flex; justify-content: space-between;
+      font-size: 15px; font-weight: 600; margin-bottom: 12px;
+    }
+    .cart-total span:last-child { color: var(--green-main); }
+    .cart-wa-btn {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; width: 100%; background: #25D366; color: #fff;
+      border: none; border-radius: var(--radius-sm); padding: 12px;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      text-decoration: none; transition: background 0.15s; font-family: inherit;
+    }
+    .cart-wa-btn:hover { background: #1ebe59; }
+
     .nav-toggle {
       display: none;
       background: none;
@@ -512,9 +610,9 @@
     <li><a href="#kontakt">Kontakt</a></li>
     <li><a href="#rreth">Rreth nesh</a></li>
   </ul>
-  <a href="#produktet" class="nav-cart">
-    🛒 Shporta
-  </a>
+  <button class="nav-cart" id="cartBtn" onclick="hapShporte()">
+    🛒 Shporta <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
+  </button>
   <button class="nav-toggle" id="navToggle" aria-label="Hap menunë">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </button>
@@ -677,7 +775,7 @@ async function ngarkoProdukte() {
               <span class="prod-price">${cmimi} L</span>
               <div class="prod-btn-group">
                 <button class="prod-btn btn-shiko" onclick="hapFaqenProduktit('${prodData}')">🔍 Shiko</button>
-                <button class="prod-btn btn-shporte" onclick="shtoShporte(this)">+ Shportë</button>
+                <button class="prod-btn btn-shporte" onclick="shtoShporte(this,'${emri}','${cmimi}','${emoji}','${fotos[0]||\'\'}')">+ Shportë</button>
               </div>
             </div>
           </div>
@@ -1016,8 +1114,18 @@ ngarkoProdukte();
     a.addEventListener('click', () => navLinks.classList.remove('open'));
   });
 
-  // Add to cart feedback
-  function shtoShporte(btn) {
+  // ── CART LOGIC ──
+  let shporta = [];
+
+  function shtoShporte(btn, emri, cmimi, emoji, foto) {
+    const existing = shporta.find(i => i.emri === emri);
+    if (existing) {
+      existing.sasia++;
+    } else {
+      shporta.push({ emri, cmimi: parseFloat(cmimi), emoji, foto, sasia: 1 });
+    }
+    perditesoShporte();
+    // Button feedback
     const original = btn.textContent;
     btn.textContent = '✓ Shtuar!';
     btn.style.background = '#1D9E75';
@@ -1026,7 +1134,71 @@ ngarkoProdukte();
       btn.textContent = original;
       btn.style.background = '';
       btn.style.color = '';
-    }, 1500);
+    }, 1200);
+  }
+
+  function ndryshoSasia(emri, delta) {
+    const item = shporta.find(i => i.emri === emri);
+    if (!item) return;
+    item.sasia += delta;
+    if (item.sasia <= 0) shporta = shporta.filter(i => i.emri !== emri);
+    perditesoShporte();
+  }
+
+  function perditesoShporte() {
+    const badge = document.getElementById('cartBadge');
+    const itemsEl = document.getElementById('cartItems');
+    const footer = document.getElementById('cartFooter');
+    const totalEl = document.getElementById('cartTotal');
+    const waBtn = document.getElementById('cartWaBtn');
+
+    const count = shporta.reduce((s, i) => s + i.sasia, 0);
+    badge.textContent = count;
+    badge.style.display = count > 0 ? 'inline' : 'none';
+
+    if (shporta.length === 0) {
+      itemsEl.innerHTML = '<div class="cart-empty"><span>🛒</span><p>Shporta është bosh</p></div>';
+      footer.style.display = 'none';
+      return;
+    }
+
+    itemsEl.innerHTML = shporta.map(item => {
+      const img = item.foto
+        ? `<img src="${item.foto}" alt="${item.emri}" />`
+        : item.emoji;
+      return `
+        <div class="cart-item">
+          <div class="cart-item-emoji">${img}</div>
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.emri}</div>
+            <div class="cart-item-price">${item.cmimi.toLocaleString()} L</div>
+          </div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="ndryshoSasia('${item.emri.replace(/'/g,"\'")}', -1)">−</button>
+            <span class="qty-num">${item.sasia}</span>
+            <button class="qty-btn" onclick="ndryshoSasia('${item.emri.replace(/'/g,"\'")}', 1)">+</button>
+          </div>
+        </div>`;
+    }).join('');
+
+    const total = shporta.reduce((s, i) => s + i.cmimi * i.sasia, 0);
+    totalEl.textContent = total.toLocaleString() + ' L';
+    footer.style.display = 'block';
+
+    const msg = shporta.map(i => `• ${i.emri} x${i.sasia} — ${(i.cmimi * i.sasia).toLocaleString()} L`).join('%0A');
+    waBtn.href = `https://wa.me/355600000000?text=Përshëndetje!%20Dua%20të%20porosis:%0A${msg}%0A%0ATotali:%20${total.toLocaleString()}%20L`;
+  }
+
+  function hapShporte() {
+    document.getElementById('cartDrawer').classList.add('open');
+    document.getElementById('cartBackdrop').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function mbyllShporte() {
+    document.getElementById('cartDrawer').classList.remove('open');
+    document.getElementById('cartBackdrop').classList.remove('open');
+    document.body.style.overflow = '';
   }
 
   // Newsletter subscribe
@@ -1188,7 +1360,7 @@ ngarkoProdukte();
         <div class="modal-desc">${p.pershkrim}</div>
         <div class="modal-price">${p.cmimi}</div>
         <div class="modal-btns">
-          <button class="btn-primary" onclick="shtoShporte(this)">+ Shto në shportë</button>
+          <button class="btn-primary" onclick="shtoShporte(this,p.emri,p.cmimi,p.emoji,p.fotos[0]||'')">+ Shto në shportë</button>
           <a href="https://wa.me/355600000000?text=Dua%20të%20porosis%20${encodeURIComponent(p.emri)}" target="_blank" class="btn-outline" style="text-decoration:none;">💬 Porosit WhatsApp</a>
         </div>
         ${video}
@@ -1213,6 +1385,24 @@ ngarkoProdukte();
     if (e.target === this) mbyllProdModal();
   });
 </script>
+
+<!-- CART DRAWER -->
+<div class="cart-backdrop" id="cartBackdrop" onclick="mbyllShporte()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>🛒 Shporta ime</h3>
+    <button class="cart-close" onclick="mbyllShporte()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty"><span>🛒</span><p>Shporta është bosh</p></div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-total"><span>Totali:</span><span id="cartTotal">0 L</span></div>
+    <a id="cartWaBtn" href="#" target="_blank" class="cart-wa-btn">
+      💬 Porosit me WhatsApp
+    </a>
+  </div>
+</div>
 
 <!-- VIDEO SIDE PANEL (Temu-style) -->
 <div class="video-side-backdrop" id="videoBackdrop" onclick="mbyllVideoPill()"></div>
