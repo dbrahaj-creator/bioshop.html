@@ -791,7 +791,20 @@ async function ngarkoProdukte() {
   }
 }
 
-ngarkoProdukte();
+ngarkoProdukte().then(() => {
+  // After products load, mark cart items as Shtuar
+  shporta.forEach(item => {
+    document.querySelectorAll('.btn-shporte').forEach(b => {
+      if (b.dataset.emri === item.emri) {
+        b.textContent = '✓ Shtuar!';
+        b.style.background = '#1D9E75';
+        b.style.color = '#fff';
+        b.style.borderColor = '#1D9E75';
+      }
+    });
+  });
+  perditesoShporte();
+});
 </script>
 
 <!-- TRUST -->
@@ -1116,6 +1129,7 @@ ngarkoProdukte();
 
   // ── CART LOGIC ──
   let shporta = [];
+  try { shporta = JSON.parse(localStorage.getItem('bioshop_cart') || '[]'); } catch(e) { shporta = []; }
 
   function shtoShporte(btn, emri, cmimi, emoji, foto) {
     const existing = shporta.find(i => i.emri === emri);
@@ -1169,7 +1183,12 @@ ngarkoProdukte();
     perditesoShporte();
   }
 
+  function ruajShporte() {
+    try { localStorage.setItem('bioshop_cart', JSON.stringify(shporta)); } catch(e) {}
+  }
+
   function perditesoShporte() {
+    ruajShporte();
     const badge = document.getElementById('cartBadge');
     const itemsEl = document.getElementById('cartItems');
     const footer = document.getElementById('cartFooter');
