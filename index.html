@@ -310,6 +310,11 @@
       color: var(--text-muted);
       margin-bottom: 10px;
       line-height: 1.5;
+      height: 54px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
     }
 
     .prod-footer {
@@ -717,50 +722,23 @@ ngarkoProdukte();
 <!-- VIDEO SECTION -->
 <section id="video">
   <div class="section-head">
-    <h2>Shikoni produktet tona</h2>
-    <p>Video prezantime dhe demonstrime të produkteve bio</p>
+    <h2>Shikoni dyqanin tonë</h2>
+    <p>Video prezantim i dyqanit fizik Bio Shop</p>
   </div>
-  <div class="video-grid">
-
-    <!-- VIDEO 1 — Prezantim Dyqani -->
+  <div class="video-single">
     <div class="video-card">
-      <div class="video-wrap" id="videoDyqani">
-        <div class="video-placeholder">
-          <span class="video-icon">🏪</span>
-          <span class="video-label">Video Prezantim Dyqani</span>
-          <span class="video-hint">Zëvendësoni linkun e YouTube këtu</span>
-        </div>
-      </div>
+      <div class="video-wrap" id="videoDyqani"></div>
       <div class="video-info">
         <h3>Dyqani ynë fizik</h3>
         <p>Vizitoni Bio Shop në qendër të Kamzës — 100% produkte natyrale</p>
       </div>
     </div>
-
-    <!-- VIDEO 2 — Produkte -->
-    <div class="video-card">
-      <div class="video-wrap" id="videoProdukte">
-        <div class="video-placeholder">
-          <span class="video-icon">🌿</span>
-          <span class="video-label">Video Produkteve</span>
-          <span class="video-hint">Zëvendësoni linkun e YouTube këtu</span>
-        </div>
-      </div>
-      <div class="video-info">
-        <h3>Produktet tona bio</h3>
-        <p>Mjaltë, farë e zezë, kujdes flokësh dhe parfume natyrale</p>
-      </div>
-    </div>
-
   </div>
 </section>
 
 <style>
-  .video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    max-width: 900px;
+  .video-single {
+    max-width: 720px;
     margin: 0 auto;
   }
   .video-card {
@@ -803,12 +781,7 @@ ngarkoProdukte();
 </style>
 
 <script>
-  // ── VIDEOT E YOUTUBE ──
-  // Zëvendësoni me ID-të tuaja të YouTube
-  // Shembull: https://www.youtube.com/watch?v=XXXXXXXXXXX → ID është XXXXXXXXXXX
-
-  const videoDyqani  = 'https://res.cloudinary.com/difzmgyff/video/upload/VID-20260623-WA0000_utagiw'; // Video e dyqanit fizik
-  const videoProdukte = ''; // ← Vendosni ID-në e videos së produkteve këtu
+  const videoDyqani  = 'https://res.cloudinary.com/difzmgyff/video/upload/VID-20260623-WA0000_utagiw';
 
   function vendosVideo(url, elId) {
     if (!url) return;
@@ -817,7 +790,8 @@ ngarkoProdukte();
       wrap.innerHTML = `<video 
         src="${url}" 
         controls 
-        style="width:100%;height:100%;border-radius:10px;background:#000;">
+        playsinline
+        style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:10px 10px 0 0;background:#000;">
       </video>`;
     } else {
       wrap.innerHTML = `<iframe
@@ -830,7 +804,6 @@ ngarkoProdukte();
   }
 
   vendosVideo(videoDyqani, 'videoDyqani');
-  vendosVideo(videoProdukte, 'videoProdukte');
 </script>
 
 <!-- DYQANI FIZIK -->
