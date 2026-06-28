@@ -267,7 +267,7 @@
     }
 
     .prod-card { display: flex; flex-direction: column;
-      background: var(--bg);
+      background: #f4faf7;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
@@ -310,11 +310,7 @@
       color: var(--text-muted);
       margin-bottom: 10px;
       line-height: 1.5;
-      height: 54px;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
+      min-height: 54px;
     }
 
     .prod-footer {
@@ -340,19 +336,30 @@
 
     .prod-btn {
       flex: 1;
-      background: rgba(255,255,255,0.15);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.4);
       border-radius: var(--radius-sm);
       padding: 8px 11px;
       font-size: 12px;
       font-weight: 500;
       cursor: pointer;
-      transition: background 0.15s;
+      transition: background 0.15s, transform 0.1s;
       text-align: center;
+      border: none;
     }
 
-    .prod-btn:hover { background: rgba(255,255,255,0.28); }
+    .prod-btn:active { transform: scale(0.97); }
+
+    .prod-btn.btn-shiko {
+      background: rgba(255,255,255,0.18);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.45);
+    }
+    .prod-btn.btn-shiko:hover { background: rgba(255,255,255,0.32); }
+
+    .prod-btn.btn-shporte {
+      background: #E8A020;
+      color: #fff;
+    }
+    .prod-btn.btn-shporte:hover { background: #cf8d18; }
 
     /* ── TRUST ── */
     .trust-grid {
@@ -669,8 +676,8 @@ async function ngarkoProdukte() {
             <div class="prod-footer">
               <span class="prod-price">${cmimi} L</span>
               <div class="prod-btn-group">
-                <button class="prod-btn" onclick="hapFaqenProduktit('${prodData}')">🔍 Shiko</button>
-                <button class="prod-btn" onclick="shtoShporte(this)">+ Shportë</button>
+                <button class="prod-btn btn-shiko" onclick="hapFaqenProduktit('${prodData}')">🔍 Shiko</button>
+                <button class="prod-btn btn-shporte" onclick="shtoShporte(this)">+ Shportë</button>
               </div>
             </div>
           </div>
